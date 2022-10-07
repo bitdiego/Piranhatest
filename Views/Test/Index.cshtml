@@ -1,0 +1,90 @@
+﻿@using PiranhaTest.Models.CustomModel
+@model Person
+@{
+    Layout = "~/Views/Shared/_LayoutICOS.cshtml";
+}
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyD_LQmkv8qfAT-TZgIecG7GndusM85RWoA"></script>
+<h1>Such a Person?</h1>
+<p>@Model.Id</p>
+<p>@Model.Name</p>
+<div id="map-canvas" style="border: thin solid #c0c0c0; width: 850px; height: 475px; text-align: left;">&nbsp;</div>
+<script>
+    function initialize() {
+        var myLatlng = new google.maps.LatLng(56, 20);
+        var mapOptions = {
+            zoom: 3,
+            center: myLatlng
+        }
+        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        //contentType: 'application/json; charset=utf-8',
+        //dataType: "json",
+
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetIcosSites", "Home")',
+            success: function (msg) {
+
+                var stations;
+                if (msg.hasOwnProperty('d')) {
+                    stations = (msg.d);
+                } else {
+                    stations = msg;
+                    
+                }
+                console.log(stations);
+                setMarkers(map, stations);
+            }
+        });
+
+    }
+
+    function setMarkers(map, locations) {
+        
+        for (var i = 0; i < locations.length; i++) {
+            var station = locations[i];
+            
+            var contentString = '<div class="content" style="font-size:10pt" ><b><p>Station name: </b>' + station.siteName + '&nbsp;(' + station.siteCode + ')<br>';
+
+            contentString += '<hr>' +
+                '<b>Latitude: </b>' + station.latitude + '<br>' +
+                '<b>Longitude: </b>' + station.longitude + '<br>';
+                
+            console.log(contentString);
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
+            var image = new google.maps.MarkerImage('/images/default-source/default-album/ground.png',
+                                       new google.maps.Size(12, 20),
+                                       new google.maps.Point(0, 0),
+                                       new google.maps.Point(0, 20)
+                                   );
+
+
+            console.log('lat ' + station.latitude);
+            console.log('long ' + station.longitude);
+
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(station.latitude, station.longitude), // myLatLng,
+                icon: image,
+                map: map,
+                title: station.siteCode,
+                html: contentString
+            });
+
+            
+
+            google.maps.event.addListener(marker, 'click', function () {
+                infowindow.setContent(this.html);
+                infowindow.open(map, this);
+            });
+        }
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+        </script>
+        <!--<div style="width: 250px; height: 1080px; margin-top: 10px; margin-bottom: 10px; float: right; text-align: right;">-->
+        

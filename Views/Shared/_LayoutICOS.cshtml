@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @RenderSection("AdditionalHead", false)
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700|Open+Sans:300,400,600" rel="stylesheet" type="text/css" />
+    <!--link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.css" /-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="~/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/local_style.css" />
+    <!--script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></!--script-->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link href="~/css/font-awesome.css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+
+    <script src="https://kit.fontawesome.com/4f31bba7c9.js" crossorigin="anonymous"></script>
+
+     @RenderSection("head", required: false)
+</head>
+<body>
+    <div class="header" id="header">
+        <div class="tint-container" style="background-image: url(/Images/bg9.png)">
+            <div class="tint -header"></div>
+            <div class="container">
+                <a href="/Home">
+                    <h1 class="logo">ICOS</h1>
+                </a>
+            </div>
+        </div>
+        <div class="fill-sub">
+            <div class="container">
+                <nav class="hidden-xs">
+                    <ul class="inline-list">
+                        <li class="inline-list-item"><a class="text-white nav-link -home @(@ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "-active" : "")" asp-action="Index" asp-controller="Home">Home</a></li>
+                        <li class="inline-list-item"><a class="text-white nav-link @(@ViewContext.RouteData.Values["Action"].ToString() == "People" ? "-active" : "")" asp-action="People" asp-controller="Home">People & Structure</a></li>
+                        <li class="inline-list-item"><a class="text-white nav-link @(@ViewContext.RouteData.Values["Action"].ToString() == "Documents" ? "-active" : "")" asp-action="Documents" asp-controller="Home">Documents</a></li>
+                        <li class="inline-list-item"><a class="text-white nav-link @(@ViewContext.RouteData.Values["Action"].ToString().ToLower().IndexOf("workinggroup")>=0 ? "-active" : "")" asp-action="WorkingGroups" asp-controller="Home">Working Groups</a></li>
+                        @*<li class="inline-list-item"><a class="text-white nav-link @(@ViewContext.RouteData.Values["Action"].ToString() == "Nrt" ? "-active" : "")" asp-action="Nrt" asp-controller="Home">NRT Data</a></li>*@
+                        <li class="inline-list-item"><a href="https://icosforum.azurewebsites.net/" class="text-white nav-link" +>Forum</a></li>
+                        <li class="inline-list-item">@Html.ActionLink("PI Area", "Dashboard", "PI", null, new { @class = "text-white nav-link" + (ViewContext.RouteData.Values["Action"].ToString() == "Dashboard" ? " -active" : "") })</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="main">
+        <div class="bg-grad-white-bottomleft section">
+            <div class="container">
+                @*<partial name="~/Views/Shared/_LoginPartial.cshtml" />
+                @RenderSection("featured", required: false)
+    <section class="content-wrapper main-content clear-fix">*@
+                @RenderBody()
+                @*</section>*@
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="fill-sub section">
+            <div class="container">
+                <div class="row clearfix">
+
+                    <div class="col-sm-6">
+                        <h5 class="text-uppercase text-white">ICOS ETC</h5>
+                        <p>
+                            DIBAF University of Tuscia<br />
+                            Largo dell'Università - Blocco D<br />
+                            01100 - Viterbo<br />
+                            Italy<br />
+
+                            <a class="text-highlight" href="mailto:info@icos-etc.eu">info@icos-etc.eu</a><br>
+                            Tel: +390761357044
+                        </p>
+                    </div>
+                    <div class="col-sm-3">
+                        <h5 class="text-uppercase text-white">ICOS Central Facilities</h5>
+                        <p>
+                            <a href="mailto:database@unitus.it"> <span></span></a><a class="text-highlight" href="http://www.icos-ri.eu/" target="_blank"><span class="icon-arrow-right icon-highlight"></span>ICOS Head Office</a><br>
+                            <span><a class="text-highlight" href="https://icos-atc-demo.lsce.ipsl.fr" target="_blank"><span class="icon-arrow-right icon-highlight"></span>The atmospheric Thematic Centre</a></span> <br>
+                            <span><a class="text-highlight" href="http://www.icos-otc.eu/" target="_blank"><span class="icon-arrow-right icon-highlight"></span>The Ocean Thematic Centre</a></span><br />
+                            <span><a class="text-highlight" href="http://www.icos-cal.eu/" target="_blank"><span class="icon-arrow-right icon-highlight"></span>The Central Analytical Laboratories</a></span>
+                        </p>
+                    </div>
+                    <div class="col-sm-3" style="padding-right: 0px;">
+                        <h5 class="text-uppercase text-white">Carbon Portal</h5>
+                        <p><a class="button rounded fill-highlight" href="http://www.icos-cp.eu/">Visit Carbon Portal</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="background-color: rgb(255, 255, 255);">
+            <div class="container">
+                <div class="clearfix">
+                    <p class="col-sm-12 text-small box">Copyright © ICOS Research Infrastructure &amp; European Research Infrastructure Consortium.</p>
+                    @*@if (SignInManager.IsSignedIn(User)
+                        {<form id="selectLanguage" asp-controller="Account" asp-action="LogOff" method="post" role="form">
+
+                            <div>
+                                <button type="submit" name="culture">
+                                    logoff
+                                </button>
+                            </div>
+                            }
+                        </form>
+                        }*@
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script type="text/javascript">
+        $(function () {
+            // Add tooltip
+            $('.tooltipEl').tooltip({
+                delay: 500,
+                placement: "right",
+                title: userDetails,
+                html: true
+            });
+        });
+
+        // Get user details for tooltip
+        function userDetails() {
+            var id = this.id;
+            //   var split_id = id.split('_');
+            //   var userid = split_id[1];
+
+            var tooltipText = "no";
+            var t2aooltipText = "aa";
+            let t2ooltipText = t2aooltipText.concat(id);
+            $.ajax({
+                url: '../../api/UIFacilities/gettooltip',
+                type: 'get',
+                async: false,
+                data: { varname: id },
+                success: function (response) {
+                    tooltipText = response;
+                }
+            });
+            return tooltipText;
+        }
+                        //inizializzazioni tooltip
+                       // $('[data-toggle="tooltip"]').tooltip();
+                   // });
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
