@@ -11,4 +11,12 @@ namespace PiranhaTest.PageTemplates
         public Person Person { get; set; }
 
     }
+
+    [PageType(Title = "Task Page", UseBlocks = false)]
+    [ContentTypeRoute(Title = "Default", Route = "/task")]
+    public class TaskPage : Page<TaskPage>
+    {
+        public PiranhaTest.Models.CustomModel.Task Task { get; set; }
+
+    }
 }

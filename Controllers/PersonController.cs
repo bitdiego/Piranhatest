@@ -5,7 +5,7 @@ using PiranhaTest.PageTemplates;
 
 namespace PiranhaTest.Controllers
 {
-    public class TestController : Controller
+    public class PersonController : Controller
     {
         private readonly IApi _api;
         //private readonly IProductApi _productApi;
